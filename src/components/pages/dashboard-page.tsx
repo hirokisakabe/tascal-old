@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { CreateTaskButton } from "../parts/create-task-button";
 import { SignOutButton } from "../parts/signout-button";
+import { TaskCardList } from "../parts/task-card-list";
 import { useAuth } from "@/lib";
 
 export function DashboardPage() {
@@ -23,6 +24,7 @@ export function DashboardPage() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <SignOutButton />
       <CreateTaskButton />
+      <TaskCardList />
     </main>
   );
 }
