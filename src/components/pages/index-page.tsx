@@ -1,9 +1,8 @@
 "use client";
 
-import { useAuth } from "@/lib";
-
 import { redirect } from "next/navigation";
 import { SignInButton } from "../parts";
+import { useAuth } from "@/lib";
 
 export function IndexPage() {
   const auth = useAuth();
