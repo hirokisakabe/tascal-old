@@ -1,9 +1,8 @@
 "use client";
 
-import { useAuth } from "@/lib";
-
 import { redirect } from "next/navigation";
 import { SignOutButton } from "../parts/signout-button";
+import { useAuth } from "@/lib";
 
 export function DashboardPage() {
   const auth = useAuth();
