@@ -1,6 +1,12 @@
 import * as RFHooks from "react-firebase-hooks/auth";
 import { firebaseAuth } from "@/config";
 
+export function getUserId() {
+  const uid = firebaseAuth.currentUser?.uid;
+
+  return uid;
+}
+
 export function useAuth() {
   const [user, loading] = RFHooks.useAuthState(firebaseAuth);
 
