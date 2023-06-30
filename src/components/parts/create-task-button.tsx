@@ -1,4 +1,4 @@
-import { Button, Flex, TextInput } from "@tremor/react";
+import { Button, Flex, Text, TextInput } from "@tremor/react";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CommonDialog } from "./common-dialog";
@@ -14,7 +14,10 @@ export function CreateTaskButton() {
   const onSubmit = useCallback(
     async (data: { [x: string]: any }) => {
       console.log(data);
-      await createTask({ title: data["input-task"] });
+      await createTask({
+        title: data["input-task-title"],
+        targetDate: data["input-task-target-date"],
+      });
       closeDialog();
     },
     [closeDialog]
@@ -30,11 +33,20 @@ export function CreateTaskButton() {
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-2">
+            <div className="py-2">
+              <Text>タイトル</Text>
+            </div>
             <TextInput
               placeholder="タスクを入力"
               type="text"
-              {...register("input-task")}
+              {...register("input-task-title")}
             />
+          </div>
+          <div className="mt-2">
+            <div className="py-2">
+              <Text>実施日</Text>
+            </div>
+            <input type="date" {...register("input-task-target-date")} />
           </div>
           <Flex className="pt-3">
             <Flex justifyContent="end" className="space-x-2 -mr-2">

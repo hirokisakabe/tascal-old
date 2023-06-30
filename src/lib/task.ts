@@ -4,7 +4,13 @@ import { getUserId, useAuth } from "./auth";
 import { firestore } from "@/config";
 import { Task, isTask } from "@/model";
 
-export async function createTask({ title }: { title: string }) {
+export async function createTask({
+  title,
+  targetDate,
+}: {
+  title: string;
+  targetDate?: string;
+}) {
   const userId = getUserId();
 
   if (!userId) {
@@ -16,6 +22,7 @@ export async function createTask({ title }: { title: string }) {
     title,
     isCompleted: false,
     userId,
+    targetDate: targetDate || null, // 空文字はnullに変換する
   });
 
   console.log("Document written with ID: ", docRef.id);
