@@ -1,4 +1,4 @@
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { getUserId, useAuth } from "./auth";
 import { firestore } from "@/config";
@@ -19,6 +19,19 @@ export async function createTask({ title }: { title: string }) {
   });
 
   console.log("Document written with ID: ", docRef.id);
+}
+
+export async function completeTask({ id }: { id: string }) {
+  const userId = getUserId();
+
+  if (!userId) {
+    console.error("Failed to get userId");
+    return;
+  }
+
+  await updateDoc(doc(firestore, "users", userId, "tasks", id), {
+    isCompleted: true,
+  });
 }
 
 export function useTaskList() {

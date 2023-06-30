@@ -8,5 +8,5 @@ export function TaskCardList() {
     return <>loading</>;
   }
 
-  return taskList.map((task) => <TaskCard key={task.id} title={task.title} />);
+  return taskList.map((task) => <TaskCard key={task.id} task={task} />);
 }
