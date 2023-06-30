@@ -11,6 +11,7 @@ export function TaskCard({ task }: { task: Task }) {
     >
       <Flex>
         <Text>{task.title}</Text>
+        <Text>{task.targetDate || "-"}</Text>
         {task.isCompleted ? (
           <Button variant="secondary" disabled>
             完了済
