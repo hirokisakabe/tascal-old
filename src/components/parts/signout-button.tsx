@@ -1,6 +1,11 @@
+import { Button } from "@tremor/react";
 import { useSignOut } from "@/lib";
 
 export function SignOutButton() {
   const { signOut } = useSignOut();
-  return <button onClick={() => signOut()}>Sign Out</button>;
+  return (
+    <Button size="xs" variant="secondary" onClick={() => signOut()}>
+      Sign Out
+    </Button>
+  );
 }
