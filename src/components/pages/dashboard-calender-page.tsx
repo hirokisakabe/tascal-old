@@ -1,13 +1,11 @@
 "use client";
 
 import { redirect } from "next/navigation";
-import { CreateTaskButton } from "../parts/create-task-button";
 import { SignOutButton } from "../parts/signout-button";
-import { TaskCardList } from "../parts/task-card-list";
-import { MoveToCalenderLink } from "../parts/move-to-calender-link";
+import { TaskCalender } from "../parts/task-calender";
 import { useAuth } from "@/lib";
 
-export function DashboardPage() {
+export function DashboardCalenderPage() {
   const auth = useAuth();
 
   if (auth.status === "loading") {
@@ -22,11 +20,8 @@ export function DashboardPage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <SignOutButton />
-      <MoveToCalenderLink />
-      <CreateTaskButton />
-      <TaskCardList />
+    <main className="flex p-24">
+      <TaskCalender />
     </main>
   );
 }

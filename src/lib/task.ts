@@ -1,4 +1,11 @@
-import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  doc,
+  where,
+  query,
+} from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { getUserId, useAuth } from "./auth";
 import { firestore } from "@/config";
@@ -18,11 +25,14 @@ export async function createTask({
     return;
   }
 
+  const targetMonth = targetDate && targetDate.slice(0, 7); // 2020-01-02 -> 2022-01
+
   const docRef = await addDoc(collection(firestore, "users", userId, "tasks"), {
     title,
     isCompleted: false,
     userId,
     targetDate: targetDate || null, // 空文字はnullに変換する
+    targetMonth: targetMonth || null,
   });
 
   console.log("Document written with ID: ", docRef.id);
@@ -41,13 +51,20 @@ export async function completeTask({ id }: { id: string }) {
   });
 }
 
-export function useTaskList() {
+export function useTaskList(options?: { month?: string }) {
+  const month = options?.month;
+
   const auth = useAuth();
   const uid = auth.status === "authenticated" ? auth.user.uid : undefined;
 
   const ref = collection(firestore, `users/${uid}/tasks`);
 
-  const [value, loading, error] = useCollection(ref);
+  const targetMonthFilter =
+    month !== undefined ? where("targetMonth", "==", month) : undefined;
+
+  const q = targetMonthFilter ? query(ref, targetMonthFilter) : ref;
+
+  const [value, loading, error] = useCollection(q);
 
   if (loading) {
     return null;
