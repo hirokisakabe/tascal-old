@@ -1,7 +1,6 @@
 import { getMonth, getDaysInMonth, getDay, getYear, getDate } from "date-fns";
 import { Grid, Card, Text, Title, Button, Flex } from "@tremor/react";
 import { useCallback, useMemo, useState } from "react";
-import { MoveToDashboardLink } from "./move-to-dashboard-link";
 import { useTaskList } from "@/lib";
 import { Task } from "@/model";
 
@@ -50,22 +49,23 @@ export function TaskCalender() {
   const firstDayOfNumber = getDay(monthFirstDate);
 
   return (
-    <div className="w-full">
-      <MoveToDashboardLink />
-      <div className="py-3">
-        <Flex className="pt-3">
-          <div>
-            <Button onClick={moveToBefore}>前</Button>
-          </div>
-          <div>
-            <Title>{title}</Title>
-          </div>
-          <div>
-            <Button onClick={moveToAfter}>次</Button>
-          </div>
-        </Flex>
-      </div>
-      <div>
+    <div className="py-3 w-full">
+      <Flex className="pt-3">
+        <div className="py-1">
+          <Button size="xs" variant="secondary" onClick={moveToBefore}>
+            前
+          </Button>
+        </div>
+        <div className="py-1">
+          <Title>{title}</Title>
+        </div>
+        <div className="py-1">
+          <Button size="xs" variant="secondary" onClick={moveToAfter}>
+            次
+          </Button>
+        </div>
+      </Flex>
+      <div className="py-1">
         <Calender data={calenderData} firstDayOfNumber={firstDayOfNumber} />
       </div>
     </div>

@@ -25,7 +25,9 @@ export function CreateTaskButton() {
 
   return (
     <>
-      <Button onClick={openDialog}>タスクを作成</Button>
+      <Button size="xs" variant="secondary" onClick={openDialog}>
+        タスクを作成
+      </Button>
       <CommonDialog
         isOpen={isOpenDialog}
         handleClose={closeDialog}

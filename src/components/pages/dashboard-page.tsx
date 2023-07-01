@@ -1,10 +1,9 @@
 "use client";
 
 import { redirect } from "next/navigation";
-import { CreateTaskButton } from "../parts/create-task-button";
-import { SignOutButton } from "../parts/signout-button";
-import { TaskCardList } from "../parts/task-card-list";
-import { MoveToCalenderLink } from "../parts/move-to-calender-link";
+import { TabList, Tab, TabGroup, TabPanels, TabPanel } from "@tremor/react";
+import { Header } from "../parts";
+import { TaskListTab, TaskCalenderTab } from "../tab";
 import { useAuth } from "@/lib";
 
 export function DashboardPage() {
@@ -22,11 +21,26 @@ export function DashboardPage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <SignOutButton />
-      <MoveToCalenderLink />
-      <CreateTaskButton />
-      <TaskCardList />
-    </main>
+    <div>
+      <div className="px-3 py-1">
+        <Header />
+      </div>
+      <main className="px-3 py-1">
+        <TabGroup>
+          <TabList className="mt-8">
+            <Tab>タスク一覧</Tab>
+            <Tab>カレンダー</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <TaskListTab />
+            </TabPanel>
+            <TabPanel>
+              <TaskCalenderTab />
+            </TabPanel>
+          </TabPanels>
+        </TabGroup>
+      </main>
+    </div>
   );
 }

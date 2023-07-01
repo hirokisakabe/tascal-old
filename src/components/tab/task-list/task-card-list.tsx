@@ -8,5 +8,9 @@ export function TaskCardList() {
     return <>loading</>;
   }
 
-  return taskList.map((task) => <TaskCard key={task.id} task={task} />);
+  return taskList.map((task) => (
+    <div key={task.id} className="py-3">
+      <TaskCard task={task} />
+    </div>
+  ));
 }
