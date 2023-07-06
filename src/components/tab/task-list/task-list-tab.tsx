@@ -1,4 +1,4 @@
-import { CreateTaskButton } from "../../parts/create-task-button";
+import { CreateTaskButton } from "./create-task-button";
 import { TaskCardList } from "./task-card-list";
 
 export function TaskListTab() {

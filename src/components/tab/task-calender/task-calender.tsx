@@ -1,9 +1,9 @@
 import { getMonth, getDaysInMonth, getDay, getYear, getDate } from "date-fns";
 import { Grid, Card, Text, Title, Button, Flex } from "@tremor/react";
 import { useCallback, useMemo, useState } from "react";
+import { CreateTaskButton } from "./create-task-button";
 import { useTaskList } from "@/lib";
-import { Task } from "@/model";
-
+import { Task, YearMonthDay } from "@/model";
 export function TaskCalender() {
   const { month, moveToBefore, moveToAfter } = useMonth();
 
@@ -24,8 +24,14 @@ export function TaskCalender() {
     return [...Array(monthDays)]
       .map((_, i) => i)
       .map((index) => {
+        const ymd = {
+          year: getYear(monthFirstDate),
+          month: getMonth(monthFirstDate) + 1,
+          day: index + 1,
+        };
+
         if (!taskList) {
-          return { day: index, tasks: [] };
+          return { ymd, tasks: [] };
         }
 
         const tasks: Task[] = [];
@@ -42,7 +48,7 @@ export function TaskCalender() {
           }
         });
 
-        return { day: index, tasks };
+        return { ymd, tasks };
       });
   }, [monthFirstDate, taskList]);
 
@@ -135,7 +141,7 @@ function Calender({
   data,
   firstDayOfNumber,
 }: {
-  data: { day: number; tasks: Task[] }[];
+  data: { ymd: YearMonthDay; tasks: Task[] }[];
   firstDayOfNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6;
 }) {
   return (
@@ -145,8 +151,8 @@ function Calender({
         .map((i) => (
           <CalenderBeforeMonthDayCell key={i} />
         ))}
-      {data.map(({ day, tasks }) => (
-        <CalenderDayCell key={day} index={day} tasks={tasks} />
+      {data.map(({ ymd, tasks }) => (
+        <CalenderDayCell key={ymd.day} ymd={ymd} tasks={tasks} />
       ))}
     </Grid>
   );
@@ -160,13 +166,18 @@ function CalenderBeforeMonthDayCell() {
   );
 }
 
-function CalenderDayCell({ index, tasks }: { index: number; tasks: Task[] }) {
+function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
   const tasksToShow = tasks.length > 3 ? tasks.slice(0, 3) : tasks;
   const numberOfDummyTasks = tasks.length > 3 ? 0 : 3 - tasks.length;
 
   return (
     <Card>
-      <Text>{index + 1} 日</Text>
+      <div className="flex">
+        <Text className="basis-5/6">{ymd.day} 日</Text>
+        <div className="basis-1/6 p-1">
+          <CreateTaskButton ymd={ymd} />
+        </div>
+      </div>
       {tasksToShow.map((task) => (
         <Text key={task.id}>{task.title}</Text>
       ))}
