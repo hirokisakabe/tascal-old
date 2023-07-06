@@ -1,4 +1,5 @@
 import { Card, Text, Button } from "@tremor/react";
+import { CheckIcon } from "@heroicons/react/24/solid";
 import { completeTask } from "@/lib";
 import { Task } from "@/model";
 
@@ -12,17 +13,13 @@ export function TaskCard({ task }: { task: Task }) {
         </div>
         <div className="w-fit">
           {task.isCompleted ? (
-            <Button size="xs" variant="secondary" disabled>
-              完了済
-            </Button>
+            <button disabled>
+              <CheckIcon className="w-8 rounded-full text-white bg-gray-300" />
+            </button>
           ) : (
-            <Button
-              size="xs"
-              variant="secondary"
-              onClick={() => completeTask({ id: task.id })}
-            >
-              完了する
-            </Button>
+            <button onClick={() => completeTask({ id: task.id })}>
+              <CheckIcon className="w-8 rounded-full" />
+            </button>
           )}
         </div>
       </div>

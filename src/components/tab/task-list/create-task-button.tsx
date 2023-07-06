@@ -1,5 +1,5 @@
-import { Button } from "@tremor/react";
 import { useCallback, useState } from "react";
+import { PlusIcon } from "@heroicons/react/24/solid";
 import { CreateTaskDialog } from "@/components/parts/create-task-dialog";
 
 export function CreateTaskButton() {
@@ -9,9 +9,9 @@ export function CreateTaskButton() {
 
   return (
     <>
-      <Button size="xs" variant="secondary" onClick={openDialog}>
-        タスクを作成
-      </Button>
+      <button onClick={openDialog}>
+        <PlusIcon className="w-10" />
+      </button>
       <CreateTaskDialog isOpen={isOpenDialog} handleClose={closeDialog} />
     </>
   );
