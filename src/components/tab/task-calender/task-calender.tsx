@@ -1,6 +1,7 @@
 import { getMonth, getDaysInMonth, getDay, getYear, getDate } from "date-fns";
-import { Grid, Card, Text, Title, Button, Flex } from "@tremor/react";
+import { Grid, Card, Text, Title, Flex } from "@tremor/react";
 import { useCallback, useMemo, useState } from "react";
+import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { CreateTaskButton } from "./create-task-button";
 import { useTaskList } from "@/lib";
 import { Task, YearMonthDay } from "@/model";
@@ -58,17 +59,17 @@ export function TaskCalender() {
     <div className="py-3 w-full">
       <Flex className="pt-3">
         <div className="py-1">
-          <Button size="xs" variant="secondary" onClick={moveToBefore}>
-            前
-          </Button>
+          <button onClick={moveToBefore}>
+            <ChevronLeftIcon className="w-8" />
+          </button>
         </div>
         <div className="py-1">
           <Title>{title}</Title>
         </div>
         <div className="py-1">
-          <Button size="xs" variant="secondary" onClick={moveToAfter}>
-            次
-          </Button>
+          <button onClick={moveToAfter}>
+            <ChevronRightIcon className="w-8" />
+          </button>
         </div>
       </Flex>
       <div className="py-1">
