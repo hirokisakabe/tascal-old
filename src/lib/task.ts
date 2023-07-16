@@ -6,6 +6,7 @@ import {
   where,
   query,
   QueryFieldFilterConstraint,
+  orderBy,
 } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { getUserId, useAuth } from "./auth";
@@ -79,7 +80,10 @@ export function useTaskList(options?: {
     filter.push(isCompletedFilter);
   }
 
-  const q = filter.length > 0 ? query(ref, ...filter) : ref;
+  const q =
+    filter.length > 0
+      ? query(ref, orderBy("targetDate"), ...filter)
+      : query(ref, orderBy("targetDate"));
 
   const [value, loading, error] = useCollection(q);
 
