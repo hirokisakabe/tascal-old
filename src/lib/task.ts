@@ -5,6 +5,7 @@ import {
   doc,
   where,
   query,
+  QueryFieldFilterConstraint,
 } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { getUserId, useAuth } from "./auth";
@@ -51,8 +52,12 @@ export async function completeTask({ id }: { id: string }) {
   });
 }
 
-export function useTaskList(options?: { month?: string }) {
+export function useTaskList(options?: {
+  month?: string;
+  isCompleted?: boolean;
+}) {
   const month = options?.month;
+  const isCompleted = options?.isCompleted;
 
   const auth = useAuth();
   const uid = auth.status === "authenticated" ? auth.user.uid : undefined;
@@ -61,8 +66,20 @@ export function useTaskList(options?: { month?: string }) {
 
   const targetMonthFilter =
     month !== undefined ? where("targetMonth", "==", month) : undefined;
+  const isCompletedFilter =
+    isCompleted !== undefined
+      ? where("isCompleted", "==", isCompleted)
+      : undefined;
 
-  const q = targetMonthFilter ? query(ref, targetMonthFilter) : ref;
+  const filter: QueryFieldFilterConstraint[] = [];
+  if (targetMonthFilter) {
+    filter.push(targetMonthFilter);
+  }
+  if (isCompletedFilter) {
+    filter.push(isCompletedFilter);
+  }
+
+  const q = filter.length > 0 ? query(ref, ...filter) : ref;
 
   const [value, loading, error] = useCollection(q);
 

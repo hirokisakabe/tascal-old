@@ -1,8 +1,14 @@
 import { TaskCard } from "./task-card";
 import { useTaskList } from "@/lib";
 
-export function TaskCardList() {
-  const taskList = useTaskList();
+export function TaskCardList({
+  excludeIsCompleted,
+}: {
+  excludeIsCompleted: boolean;
+}) {
+  const taskList = useTaskList({
+    isCompleted: excludeIsCompleted ? false : undefined,
+  });
 
   if (!taskList) {
     return <>loading</>;
