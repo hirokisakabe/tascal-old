@@ -1,5 +1,5 @@
-import { TaskCalender } from "./task-calender";
+import { TaskCalenderContainer } from "./task-calender-container";
 
 export function TaskCalenderTab() {
-  return <TaskCalender />;
+  return <TaskCalenderContainer />;
 }
