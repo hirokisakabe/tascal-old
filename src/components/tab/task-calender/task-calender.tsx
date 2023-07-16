@@ -10,6 +10,7 @@ import { Grid, Card, Text, Title, Flex } from "@tremor/react";
 import { useCallback, useMemo, useState } from "react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { CreateTaskButton } from "./create-task-button";
+import { TaskBox } from "./task-box";
 import { useTaskList } from "@/lib";
 import { Task, YearMonthDay, convertYearMonthDayToStr } from "@/model";
 export function TaskCalender() {
@@ -201,7 +202,7 @@ function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
         </div>
       </div>
       {tasksToShow.map((task) => (
-        <Text key={task.id}>{task.title}</Text>
+        <TaskBox key={task.id} task={task} />
       ))}
       {[...Array(numberOfDummyTasks)]
         .map((_, i) => i)
