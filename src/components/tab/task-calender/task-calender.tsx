@@ -154,6 +154,11 @@ function Calender({
 }) {
   return (
     <Grid numItems={7} className="gap-4">
+      {[...Array(7)]
+        .map((_, i) => i)
+        .map((i) => (
+          <CalenderDayNameCell key={i} dayNumber={i as any} />
+        ))}
       {[...Array(firstDayOfNumber)]
         .map((_, i) => i)
         .map((i) => (
@@ -212,4 +217,39 @@ function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
       )}
     </Card>
   );
+}
+
+function CalenderDayNameCell({
+  dayNumber,
+}: {
+  dayNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+}) {
+  return (
+    <div className="pl-2">
+      <Text>{convertDateToDayName(dayNumber)}</Text>
+    </div>
+  );
+}
+
+function convertDateToDayName(dayNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6) {
+  const dayName = (() => {
+    switch (dayNumber) {
+      case 0:
+        return "日";
+      case 1:
+        return "月";
+      case 2:
+        return "火";
+      case 3:
+        return "水";
+      case 4:
+        return "木";
+      case 5:
+        return "金";
+      case 6:
+        return "土";
+    }
+  })();
+
+  return dayName;
 }
