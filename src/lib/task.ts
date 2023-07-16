@@ -40,6 +40,40 @@ export async function createTask({
   console.log("Document written with ID: ", docRef.id);
 }
 
+export async function updateTask({
+  id,
+  title,
+  targetDate,
+}: {
+  id: string;
+  title?: string;
+  targetDate: string | undefined | null;
+}) {
+  const userId = getUserId();
+
+  if (!userId) {
+    console.error("Failed to get userId");
+    return;
+  }
+
+  const data = (() => {
+    if (targetDate === undefined) {
+      // targetDateとtargetMonthは更新しない
+      return { title };
+    }
+
+    const targetMonth = targetDate && targetDate.slice(0, 7); // 2020-01-02 -> 2022-01
+
+    return {
+      title,
+      targetDate: targetDate || null, // 空文字はnullに変換する
+      targetMonth: targetMonth || null,
+    };
+  })();
+
+  await updateDoc(doc(firestore, "users", userId, "tasks", id), data);
+}
+
 export async function completeTask({ id }: { id: string }) {
   const userId = getUserId();
 
