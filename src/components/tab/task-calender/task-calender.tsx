@@ -1,10 +1,17 @@
-import { getMonth, getDaysInMonth, getDay, getYear, getDate } from "date-fns";
+import {
+  getMonth,
+  getDaysInMonth,
+  getDay,
+  getYear,
+  getDate,
+  format,
+} from "date-fns";
 import { Grid, Card, Text, Title, Flex } from "@tremor/react";
 import { useCallback, useMemo, useState } from "react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { CreateTaskButton } from "./create-task-button";
 import { useTaskList } from "@/lib";
-import { Task, YearMonthDay } from "@/model";
+import { Task, YearMonthDay, convertYearMonthDayToStr } from "@/model";
 export function TaskCalender() {
   const { month, moveToBefore, moveToAfter } = useMonth();
 
@@ -171,10 +178,19 @@ function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
   const tasksToShow = tasks.length > 3 ? tasks.slice(0, 3) : tasks;
   const numberOfDummyTasks = tasks.length > 3 ? 0 : 3 - tasks.length;
 
+  const isToday =
+    convertYearMonthDayToStr(ymd) === format(new Date(), "yyyy-MM-dd");
+
   return (
     <Card>
       <div className="flex">
-        <Text className="basis-5/6">{ymd.day} 日</Text>
+        {isToday ? (
+          <Text className="basis-5/6 font-semibold text-blue-500">
+            {ymd.day} 日
+          </Text>
+        ) : (
+          <Text className="basis-5/6">{ymd.day} 日</Text>
+        )}
         <div className="basis-1/6 p-1">
           <CreateTaskButton ymd={ymd} />
         </div>
