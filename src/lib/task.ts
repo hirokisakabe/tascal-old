@@ -7,6 +7,7 @@ import {
   query,
   QueryFieldFilterConstraint,
   orderBy,
+  deleteDoc,
 } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { getUserId, useAuth } from "./auth";
@@ -85,6 +86,17 @@ export async function completeTask({ id }: { id: string }) {
   await updateDoc(doc(firestore, "users", userId, "tasks", id), {
     isCompleted: true,
   });
+}
+
+export async function deleteTask({ id }: { id: string }) {
+  const userId = getUserId();
+
+  if (!userId) {
+    console.error("Failed to get userId");
+    return;
+  }
+
+  await deleteDoc(doc(firestore, "users", userId, "tasks", id));
 }
 
 export function useTaskList(options?: {
