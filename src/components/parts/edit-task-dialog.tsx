@@ -23,11 +23,26 @@ export function EditTaskDialog({
   });
 
   const onSubmit = useCallback(
-    async (data: { [x: string]: any }) => {
+    async (data: { [x: string]: unknown }) => {
+      const title = data["input-task-title"];
+      const targetDate = data["input-task-target-date"];
+
+      if (!(typeof title === "string")) {
+        console.error(`title is invalid: ${title}`);
+        return;
+      }
+
+      if (
+        !(typeof targetDate === "string" || typeof targetDate === "undefined")
+      ) {
+        console.error(`targetDate is invalid: ${targetDate}`);
+        return;
+      }
+
       await updateTask({
         id: task.id,
-        title: data["input-task-title"],
-        targetDate: data["input-task-target-date"],
+        title,
+        targetDate,
       });
       reset();
       handleClose();
