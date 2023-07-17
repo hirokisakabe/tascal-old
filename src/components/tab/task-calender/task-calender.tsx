@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { Grid, Card, Text, Title, Flex } from "@tremor/react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { CreateTaskButton } from "./create-task-button";
-import { TaskBox } from "./task-box";
+import { TaskBoxContainer } from "./task-box-container";
 import { Task, YearMonthDay, convertYearMonthDayToStr } from "@/model";
 
 type Props = {
@@ -110,7 +110,7 @@ function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
         </div>
       </div>
       {tasksToShow.map((task) => (
-        <TaskBox key={task.id} task={task} />
+        <TaskBoxContainer key={task.id} task={task} />
       ))}
       {[...Array(numberOfDummyTasks)]
         .map((_, i) => i)
