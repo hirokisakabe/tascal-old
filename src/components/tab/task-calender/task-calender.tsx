@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { format } from "date-fns";
 import { Grid, Card, Text, Title, Flex } from "@tremor/react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
@@ -89,8 +90,22 @@ function CalenderBeforeMonthDayCell() {
 }
 
 function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
-  const tasksToShow = tasks.length > 3 ? tasks.slice(0, 3) : tasks;
-  const numberOfDummyTasks = tasks.length > 3 ? 0 : 3 - tasks.length;
+  const [showAll, setShowAll] = useState(false);
+
+  const DEFAULT_NUMBER_OF_TASKS_TO_SHOW = 3;
+  const needShowMore = tasks.length > DEFAULT_NUMBER_OF_TASKS_TO_SHOW;
+
+  const tasksToShow = (() => {
+    if (showAll) {
+      return tasks;
+    }
+    return needShowMore
+      ? tasks.slice(0, DEFAULT_NUMBER_OF_TASKS_TO_SHOW)
+      : tasks;
+  })();
+  const numberOfDummyTasks = needShowMore
+    ? 0
+    : DEFAULT_NUMBER_OF_TASKS_TO_SHOW - tasks.length;
 
   const isToday =
     convertYearMonthDayToStr(ymd) === format(new Date(), "yyyy-MM-dd");
@@ -119,11 +134,25 @@ function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
             ____
           </Text>
         ))}
-      {tasks.length > 4 ? (
-        <Text>...</Text>
-      ) : (
-        <Text className="invisible">____</Text>
-      )}
+      {(() => {
+        if (!needShowMore) {
+          return <Text className="invisible">____</Text>;
+        }
+
+        return showAll ? (
+          <div className="py-1 w-full text-end">
+            <button type="button" onClick={() => setShowAll(false)}>
+              show less
+            </button>
+          </div>
+        ) : (
+          <div className="py-1 w-full text-end">
+            <button type="button" onClick={() => setShowAll(true)}>
+              show more
+            </button>
+          </div>
+        );
+      })()}
     </Card>
   );
 }
