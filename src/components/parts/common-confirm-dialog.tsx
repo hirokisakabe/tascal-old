@@ -1,9 +1,6 @@
-import { Button, Flex, Text, TextInput } from "@tremor/react";
+import { Button, Flex, Text } from "@tremor/react";
 import { useCallback } from "react";
-import { useForm } from "react-hook-form";
 import { CommonDialog } from "./common-dialog";
-import { updateTask } from "@/lib";
-import { Task } from "@/model";
 
 export function CommonConfirmDialog({
   isOpen,

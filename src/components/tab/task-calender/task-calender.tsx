@@ -65,6 +65,7 @@ function Calender({
       {[...Array(7)]
         .map((_, i) => i)
         .map((i) => (
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           <CalenderDayNameCell key={i} dayNumber={i as any} />
         ))}
       {[...Array(firstDayOfNumber)]
