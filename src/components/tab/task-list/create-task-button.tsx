@@ -10,7 +10,7 @@ export function CreateTaskButton() {
   return (
     <>
       <button onClick={openDialog}>
-        <PlusIcon className="w-10" />
+        <PlusIcon className="w-8" />
       </button>
       <CreateTaskDialog isOpen={isOpenDialog} handleClose={closeDialog} />
     </>

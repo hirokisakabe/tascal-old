@@ -11,9 +11,9 @@ export function IsCompletedFilterButton({
     <>
       <button onClick={onClick}>
         {excludeIsCompleted ? (
-          <FunnelIcon className="w-10 fill-transparent stroke-black" />
+          <FunnelIcon className="w-8 fill-transparent stroke-black" />
         ) : (
-          <FunnelIcon className="w-10 stroke-black" />
+          <FunnelIcon className="w-8 stroke-black" />
         )}
       </button>
     </>
