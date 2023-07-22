@@ -1,6 +1,6 @@
 import { Text } from "@tremor/react";
 import { useCallback, useState } from "react";
-import { CheckIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { EditTaskDialog } from "@/components/parts";
 import { Task } from "@/model";
 
@@ -13,7 +13,7 @@ export function TaskBox({ task, completeTask }: Props) {
 
   return (
     <>
-      <div className="m-2 bg-slate-100 rounded flex items-center">
+      <div className="border border-slate-300 rounded flex items-center">
         <div className="w-full">
           <button
             className="w-full text-start"
@@ -27,11 +27,11 @@ export function TaskBox({ task, completeTask }: Props) {
           <div className="flex items-center">
             {task.isCompleted ? (
               <button disabled>
-                <CheckIcon className="w-5 rounded-full text-white bg-gray-300" />
+                <CheckCircleIcon className="w-5 rounded-full text-slate-400" />
               </button>
             ) : (
               <button onClick={() => completeTask({ id: task.id })}>
-                <CheckIcon className="w-5 rounded-full" />
+                <CheckCircleIcon className="w-5 rounded-full text-white bg-slate-400" />
               </button>
             )}
           </div>

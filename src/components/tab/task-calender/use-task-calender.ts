@@ -1,4 +1,11 @@
-import { getMonth, getDaysInMonth, getDay, getYear, getDate } from "date-fns";
+import {
+  getMonth,
+  getDaysInMonth,
+  getDay,
+  getYear,
+  getDate,
+  lastDayOfMonth,
+} from "date-fns";
 import { useCallback, useMemo, useState } from "react";
 import { useTaskList } from "@/lib";
 import { Task } from "@/model";
@@ -52,8 +59,16 @@ export function useTaskCalender() {
   }, [monthFirstDate, taskList]);
 
   const firstDayOfNumber = getDay(monthFirstDate);
+  const lastDayOfNumber = getDay(lastDayOfMonth(monthFirstDate));
 
-  return { title, calenderData, moveToBefore, moveToAfter, firstDayOfNumber };
+  return {
+    title,
+    calenderData,
+    moveToBefore,
+    moveToAfter,
+    firstDayOfNumber,
+    lastDayOfNumber,
+  };
 }
 
 function convertMonthStrToDate(month: string) {

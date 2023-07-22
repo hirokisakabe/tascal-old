@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { format } from "date-fns";
-import { Grid, Card, Text, Title, Flex } from "@tremor/react";
+import { Grid, Text, Title, Flex } from "@tremor/react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { CreateTaskButton } from "./create-task-button";
 import { TaskBoxContainer } from "./task-box-container";
@@ -24,31 +24,42 @@ type Props = {
   moveToBefore: () => unknown;
   moveToAfter: () => unknown;
   firstDayOfNumber: 0 | 2 | 1 | 3 | 4 | 5 | 6;
+  lastDayOfNumber: 0 | 2 | 1 | 3 | 4 | 5 | 6;
 };
 
 export function TaskCalender(props: Props) {
-  const { title, calenderData, moveToBefore, moveToAfter, firstDayOfNumber } =
-    props;
+  const {
+    title,
+    calenderData,
+    moveToBefore,
+    moveToAfter,
+    firstDayOfNumber,
+    lastDayOfNumber,
+  } = props;
 
   return (
     <div className="py-3 w-full">
-      <Flex className="pt-3">
-        <div className="py-1">
+      <Flex className="py-1">
+        <div>
           <button onClick={moveToBefore}>
-            <ChevronLeftIcon className="w-8" />
+            <ChevronLeftIcon className="w-5" />
           </button>
         </div>
-        <div className="py-1">
+        <div>
           <Title>{title}</Title>
         </div>
-        <div className="py-1">
+        <div>
           <button onClick={moveToAfter}>
-            <ChevronRightIcon className="w-8" />
+            <ChevronRightIcon className="w-5" />
           </button>
         </div>
       </Flex>
       <div className="py-1">
-        <Calender data={calenderData} firstDayOfNumber={firstDayOfNumber} />
+        <Calender
+          data={calenderData}
+          firstDayOfNumber={firstDayOfNumber}
+          lastDayOfNumber={lastDayOfNumber}
+        />
       </div>
     </div>
   );
@@ -57,12 +68,14 @@ export function TaskCalender(props: Props) {
 function Calender({
   data,
   firstDayOfNumber,
+  lastDayOfNumber,
 }: {
   data: { ymd: YearMonthDay; tasks: Task[] }[];
   firstDayOfNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  lastDayOfNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6;
 }) {
   return (
-    <Grid numItems={7} className="gap-4">
+    <Grid numItems={7} className="border-r border-b">
       {[...Array(7)]
         .map((_, i) => i)
         .map((i) => (
@@ -77,16 +90,17 @@ function Calender({
       {data.map(({ ymd, tasks }) => (
         <CalenderDayCell key={ymd.day} ymd={ymd} tasks={tasks} />
       ))}
+      {[...Array(6 - lastDayOfNumber)]
+        .map((_, i) => i)
+        .map((i) => (
+          <CalenderBeforeMonthDayCell key={i} />
+        ))}
     </Grid>
   );
 }
 
 function CalenderBeforeMonthDayCell() {
-  return (
-    <Card>
-      <Text>...</Text>
-    </Card>
-  );
+  return <div className="p-1 border-t border-l"></div>;
 }
 
 function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
@@ -111,49 +125,59 @@ function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
     convertYearMonthDayToStr(ymd) === format(new Date(), "yyyy-MM-dd");
 
   return (
-    <Card>
-      <div className="flex">
-        {isToday ? (
-          <Text className="basis-5/6 font-semibold text-blue-500">
-            {ymd.day} 日
-          </Text>
-        ) : (
-          <Text className="basis-5/6">{ymd.day} 日</Text>
-        )}
-        <div className="basis-1/6 p-1">
-          <CreateTaskButton ymd={ymd} />
+    <div className="border-t border-l">
+      <div className="p-1">
+        <div className="flex items-center">
+          <div className="w-full">
+            {isToday ? (
+              <div className="text-sm font-semibold text-blue-500">
+                {ymd.day} 日
+              </div>
+            ) : (
+              <div className="text-sm text-slate-500">{ymd.day} 日</div>
+            )}
+          </div>
+          <div className="flex justify-end">
+            <div className="py-1 flex items-center">
+              <CreateTaskButton ymd={ymd} />
+            </div>
+          </div>
         </div>
-      </div>
-      {tasksToShow.map((task) => (
-        <TaskBoxContainer key={task.id} task={task} />
-      ))}
-      {[...Array(numberOfDummyTasks)]
-        .map((_, i) => i)
-        .map((i) => (
-          <Text key={i} className="invisible">
-            ____
-          </Text>
-        ))}
-      {(() => {
-        if (!needShowMore) {
-          return <Text className="invisible">____</Text>;
-        }
+        <div className="space-y-0.5">
+          {tasksToShow.map((task) => (
+            <div className="px-1" key={task.id}>
+              <TaskBoxContainer task={task} />
+            </div>
+          ))}
+        </div>
+        {[...Array(numberOfDummyTasks)]
+          .map((_, i) => i)
+          .map((i) => (
+            <Text key={i} className="invisible">
+              ____
+            </Text>
+          ))}
+        {(() => {
+          if (!needShowMore) {
+            return <Text className="invisible">____</Text>;
+          }
 
-        return showAll ? (
-          <div className="py-1 w-full text-end">
-            <button type="button" onClick={() => setShowAll(false)}>
-              show less
-            </button>
-          </div>
-        ) : (
-          <div className="py-1 w-full text-end">
-            <button type="button" onClick={() => setShowAll(true)}>
-              show more
-            </button>
-          </div>
-        );
-      })()}
-    </Card>
+          return showAll ? (
+            <div className="py-1 w-full text-end text-slate-500">
+              <button type="button" onClick={() => setShowAll(false)}>
+                show less
+              </button>
+            </div>
+          ) : (
+            <div className="py-1 w-full text-end text-slate-500">
+              <button type="button" onClick={() => setShowAll(true)}>
+                show more
+              </button>
+            </div>
+          );
+        })()}
+      </div>
+    </div>
   );
 }
 
@@ -163,8 +187,10 @@ function CalenderDayNameCell({
   dayNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6;
 }) {
   return (
-    <div className="pl-2">
-      <Text>{convertDateToDayName(dayNumber)}</Text>
+    <div className="pl-2 border-t border-l">
+      <div className="text-sm text-slate-500">
+        {convertDateToDayName(dayNumber)}
+      </div>
     </div>
   );
 }

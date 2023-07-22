@@ -11,7 +11,7 @@ export function CreateTaskButton({ ymd }: { ymd: YearMonthDay }) {
   return (
     <>
       <button onClick={openDialog}>
-        <PlusIcon className="w-full" />
+        <PlusIcon className="w-5 text-slate-600" />
       </button>
       <CreateTaskDialog
         isOpen={isOpenDialog}
