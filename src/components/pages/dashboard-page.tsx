@@ -27,7 +27,7 @@ export function DashboardPage() {
       </div>
       <main className="px-3 py-1">
         <TabGroup>
-          <TabList className="mt-8">
+          <TabList>
             <Tab>タスク一覧</Tab>
             <Tab>カレンダー</Tab>
           </TabList>
