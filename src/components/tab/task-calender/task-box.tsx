@@ -3,17 +3,32 @@ import { useCallback, useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { EditTaskDialog } from "@/components/parts";
 import { Task } from "@/model";
+import { useDrag } from "react-dnd";
 
 type Props = { task: Task; completeTask: ({ id }: { id: string }) => unknown };
 
+const ItemTypes = {
+  text: "knight",
+};
 export function TaskBox({ task, completeTask }: Props) {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const openDialog = useCallback(() => setIsOpenDialog(true), []);
   const closeDialog = useCallback(() => setIsOpenDialog(false), []);
 
+  const [{ opacity }, dragRef] = useDrag(
+    () => ({
+      type: ItemTypes.text,
+      //item: { text: "hoge" },
+      collect: (monitor) => ({
+        opacity: monitor.isDragging() ? 0.5 : 1,
+      }),
+    }),
+    []
+  );
+
   return (
     <>
-      <div className="m-2 bg-slate-100 rounded flex items-center">
+      <div className="m-2 bg-slate-100 rounded flex items-center" ref={dragRef}>
         <div className="w-full">
           <button
             className="w-full text-start"
