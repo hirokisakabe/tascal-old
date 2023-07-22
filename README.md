@@ -2,7 +2,7 @@
 
 Task + Calender = **tascal**
 
-**tascal** is a simple TODO management app.
+**tascal** is a simple todo list app.
 
 ![](img/task_list.png)
 
