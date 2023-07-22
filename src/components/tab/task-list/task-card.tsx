@@ -1,5 +1,5 @@
-import { Card, Text } from "@tremor/react";
-import { CheckIcon } from "@heroicons/react/24/solid";
+import { Text } from "@tremor/react";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Task } from "@/model";
 
 type Props = { task: Task; completeTask: ({ id }: { id: string }) => unknown };
@@ -8,24 +8,23 @@ export function TaskCard(props: Props) {
   const { task, completeTask } = props;
 
   return (
-    <Card className="max-w-xs mx-auto">
-      <div className="flex justify-end">
-        <div className="w-full">
-          <Text>{task.title}</Text>
-          <Text>{task.targetDate || "-"}</Text>
-        </div>
-        <div className="w-fit">
+    <div className="border border-slate-300 rounded flex items-center">
+      <div className="w-full">
+        <Text className="px-1">{task.title}</Text>
+      </div>
+      <div className="w-fit p-1 ml-3">
+        <div className="flex items-center">
           {task.isCompleted ? (
             <button disabled>
-              <CheckIcon className="w-8 rounded-full text-white bg-gray-300" />
+              <CheckCircleIcon className="w-5 rounded-full text-slate-400" />
             </button>
           ) : (
             <button onClick={() => completeTask({ id: task.id })}>
-              <CheckIcon className="w-8 rounded-full" />
+              <CheckCircleIcon className="w-5 rounded-full text-white bg-slate-400" />
             </button>
           )}
         </div>
       </div>
-    </Card>
+    </div>
   );
 }

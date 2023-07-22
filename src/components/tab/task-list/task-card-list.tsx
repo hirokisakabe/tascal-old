@@ -23,19 +23,23 @@ export function TaskCardList(props: Props) {
   }
 
   return (
-    <div className="py-3">
-      <div className="flex justify-end">
-        <IsCompletedFilterButton
-          excludeIsCompleted={excludeIsCompleted}
-          onClick={toggleExcludeIsCompleted}
-        />
-        <CreateTaskButton />
+    <div className="py-3 flex w-full">
+      <div className="basis-3/4 space-y-1">
+        {taskList.map((task) => (
+          <div key={task.id}>
+            <TaskCardContainer task={task} />
+          </div>
+        ))}
       </div>
-      {taskList.map((task) => (
-        <div key={task.id} className="py-3">
-          <TaskCardContainer task={task} />
+      <div className="basis-1/4 flex justify-end px-2">
+        <div className="space-x-2">
+          <IsCompletedFilterButton
+            excludeIsCompleted={excludeIsCompleted}
+            onClick={toggleExcludeIsCompleted}
+          />
+          <CreateTaskButton />
         </div>
-      ))}
+      </div>
     </div>
   );
 }
