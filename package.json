@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@headlessui/react": "1.7.16",
+    "@headlessui/react": "1.7.17",
     "@heroicons/react": "2.0.18",
     "@tremor/react": "3.2.3",
     "@types/node": "20.3.1",
