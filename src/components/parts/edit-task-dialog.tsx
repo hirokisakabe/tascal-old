@@ -47,7 +47,7 @@ export function EditTaskDialog({
       reset();
       handleClose();
     },
-    [task.id, reset, handleClose]
+    [task.id, reset, handleClose],
   );
 
   const [isOpenDialog, setIsOpenDialog] = useState(false);

@@ -17,7 +17,7 @@ export function useTaskCalender() {
 
   const title = useMemo(
     () => `${getYear(monthFirstDate)} / ${getMonth(monthFirstDate) + 1}`,
-    [monthFirstDate]
+    [monthFirstDate],
   );
 
   const taskList = useTaskList({

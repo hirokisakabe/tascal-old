@@ -46,7 +46,7 @@ export function CreateTaskDialog({
       reset();
       handleClose();
     },
-    [reset, handleClose]
+    [reset, handleClose],
   );
 
   return (

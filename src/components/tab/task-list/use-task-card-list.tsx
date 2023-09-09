@@ -6,7 +6,7 @@ export function useTaskCalender() {
 
   const toggleExcludeIsCompleted = useCallback(
     () => setExcludeIsCompleted((prev) => !prev),
-    []
+    [],
   );
 
   const taskList = useTaskList({
