@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { FolderPlusIcon } from "@heroicons/react/20/solid";
-import { CreateCategoryDialog } from "./create-category-dialog";
+import { CreateCategoryDialog } from "@/components/dialog";
 
 export function CreateCategoryButton() {
   const [isOpenDialog, setIsOpenDialog] = useState(false);

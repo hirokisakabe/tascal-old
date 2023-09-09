@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { PlusIcon } from "@heroicons/react/24/solid";
-import { CreateTaskDialog } from "@/components/parts/create-task-dialog";
+import { CreateTaskDialog } from "@/components/dialog";
 
 export function CreateTaskButton() {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
