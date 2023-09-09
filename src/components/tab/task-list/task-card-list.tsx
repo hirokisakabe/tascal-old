@@ -23,7 +23,7 @@ export function TaskCardList(props: Props) {
   }
 
   return (
-    <div className="py-3 flex w-full">
+    <div className="flex w-full py-3">
       <div className="basis-3/4 space-y-1">
         {taskList.map((task) => (
           <div key={task.id}>
@@ -31,7 +31,7 @@ export function TaskCardList(props: Props) {
           </div>
         ))}
       </div>
-      <div className="basis-1/4 flex justify-end px-2">
+      <div className="flex basis-1/4 justify-end px-2">
         <div className="space-x-2">
           <IsCompletedFilterButton
             excludeIsCompleted={excludeIsCompleted}

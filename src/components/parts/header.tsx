@@ -3,7 +3,7 @@ import { SignOutButton } from "./signout-button";
 
 export function Header() {
   return (
-    <div className="pt-2 flex">
+    <div className="flex pt-2">
       <div className="w-full">
         <Title>Tascal</Title>
       </div>

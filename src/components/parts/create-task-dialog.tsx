@@ -73,7 +73,7 @@ export function CreateTaskDialog({
           <input type="date" {...register("input-task-target-date")} />
         </div>
         <Flex className="pt-3">
-          <Flex justifyContent="end" className="space-x-2 -mr-2">
+          <Flex justifyContent="end" className="-mr-2 space-x-2">
             <Button type="button" onClick={handleClose}>
               キャンセル
             </Button>

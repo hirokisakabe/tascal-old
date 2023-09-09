@@ -28,7 +28,7 @@ export function CommonConfirmDialog({
         </div>
       </div>
       <Flex className="pt-3">
-        <Flex justifyContent="end" className="space-x-2 -mr-2">
+        <Flex justifyContent="end" className="-mr-2 space-x-2">
           <Button type="button" onClick={handleClose}>
             キャンセル
           </Button>

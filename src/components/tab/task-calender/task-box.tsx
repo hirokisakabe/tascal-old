@@ -13,7 +13,7 @@ export function TaskBox({ task, completeTask }: Props) {
 
   return (
     <>
-      <div className="border border-slate-300 rounded flex items-center">
+      <div className="flex items-center rounded border border-slate-300">
         <div className="w-full">
           <button
             className="w-full text-start"
@@ -23,7 +23,7 @@ export function TaskBox({ task, completeTask }: Props) {
             <Text className="px-1">{task.title}</Text>
           </button>
         </div>
-        <div className="w-fit p-1 ml-3">
+        <div className="ml-3 w-fit p-1">
           <div className="flex items-center">
             {task.isCompleted ? (
               <button disabled>
@@ -31,7 +31,7 @@ export function TaskBox({ task, completeTask }: Props) {
               </button>
             ) : (
               <button onClick={() => completeTask({ id: task.id })}>
-                <CheckCircleIcon className="w-5 rounded-full text-white bg-slate-400" />
+                <CheckCircleIcon className="w-5 rounded-full bg-slate-400 text-white" />
               </button>
             )}
           </div>

@@ -38,7 +38,7 @@ export function TaskCalender(props: Props) {
   } = props;
 
   return (
-    <div className="py-3 w-full">
+    <div className="w-full py-3">
       <Flex className="py-1">
         <div>
           <button onClick={moveToBefore}>
@@ -75,7 +75,7 @@ function Calender({
   lastDayOfNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6;
 }) {
   return (
-    <Grid numItems={7} className="border-r border-b">
+    <Grid numItems={7} className="border-b border-r">
       {[...Array(7)]
         .map((_, i) => i)
         .map((i) => (
@@ -100,7 +100,7 @@ function Calender({
 }
 
 function CalenderBeforeMonthDayCell() {
-  return <div className="p-1 border-t border-l"></div>;
+  return <div className="border-l border-t p-1"></div>;
 }
 
 function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
@@ -125,7 +125,7 @@ function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
     convertYearMonthDayToStr(ymd) === format(new Date(), "yyyy-MM-dd");
 
   return (
-    <div className="border-t border-l">
+    <div className="border-l border-t">
       <div className="p-1">
         <div className="flex items-center">
           <div className="w-full">
@@ -138,7 +138,7 @@ function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
             )}
           </div>
           <div className="flex justify-end">
-            <div className="py-1 flex items-center">
+            <div className="flex items-center py-1">
               <CreateTaskButton ymd={ymd} />
             </div>
           </div>
@@ -163,13 +163,13 @@ function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
           }
 
           return showAll ? (
-            <div className="py-1 w-full text-end text-slate-500">
+            <div className="w-full py-1 text-end text-slate-500">
               <button type="button" onClick={() => setShowAll(false)}>
                 show less
               </button>
             </div>
           ) : (
-            <div className="py-1 w-full text-end text-slate-500">
+            <div className="w-full py-1 text-end text-slate-500">
               <button type="button" onClick={() => setShowAll(true)}>
                 show more
               </button>
@@ -187,7 +187,7 @@ function CalenderDayNameCell({
   dayNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6;
 }) {
   return (
-    <div className="pl-2 border-t border-l">
+    <div className="border-l border-t pl-2">
       <div className="text-sm text-slate-500">
         {convertDateToDayName(dayNumber)}
       </div>
