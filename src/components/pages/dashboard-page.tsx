@@ -2,8 +2,9 @@
 
 import { redirect } from "next/navigation";
 import { TabList, Tab, TabGroup, TabPanels, TabPanel } from "@tremor/react";
-import { Header } from "../parts";
-import { TaskListTab, TaskCalenderTab } from "../tab";
+import { Header } from "../header";
+import { TaskCalenderTab } from "../task-calender-tab";
+import { TaskListTab } from "../task-list-tab";
 import { useAuth } from "@/lib";
 
 export function DashboardPage() {

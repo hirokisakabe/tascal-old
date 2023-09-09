@@ -1,7 +1,7 @@
 import { Text } from "@tremor/react";
 import { useCallback, useState } from "react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
-import { EditTaskDialog } from "@/components/parts";
+import { EditTaskDialog } from "@/components/dialog";
 import { Task } from "@/model";
 
 type Props = { task: Task; completeTask: ({ id }: { id: string }) => unknown };
