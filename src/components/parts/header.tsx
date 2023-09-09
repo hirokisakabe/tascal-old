@@ -1,6 +1,5 @@
 import { Title } from "@tremor/react";
-import { SignOutButton } from "./signout-button";
-import { CreateCategoryButton } from "./create-category-button";
+import { HeaderMenu } from "./header-menu";
 
 export function Header() {
   return (
@@ -9,8 +8,7 @@ export function Header() {
         <Title>Tascal</Title>
       </div>
       <div className="flex justify-end">
-        <CreateCategoryButton />
-        <SignOutButton />
+        <HeaderMenu />
       </div>
     </div>
   );
