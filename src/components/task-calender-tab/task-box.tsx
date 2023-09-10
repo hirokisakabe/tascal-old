@@ -13,7 +13,10 @@ export function TaskBox({ task, completeTask }: Props) {
 
   return (
     <>
-      <div className="flex items-center rounded border border-slate-300">
+      <div
+        style={task.category ? { backgroundColor: task.category.color } : {}}
+        className="flex items-center rounded border border-slate-300"
+      >
         <div className="w-full">
           <button
             className="w-full text-start"
