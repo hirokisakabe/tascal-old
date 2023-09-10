@@ -1,16 +1,10 @@
 import { CreateTaskButton } from "./create-task-button";
 import { IsCompletedFilterButton } from "./is-completed-filter-button";
 import { TaskCardContainer } from "./task-card-container";
+import { Task } from "@/model";
 
 type Props = {
-  taskList:
-    | {
-        id: string;
-        title: string;
-        isCompleted: boolean;
-        targetDate: string | null;
-      }[]
-    | null;
+  taskList: Task[] | null;
   excludeIsCompleted: boolean;
   toggleExcludeIsCompleted: () => unknown;
 };
