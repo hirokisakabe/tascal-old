@@ -5,6 +5,7 @@ import { Tab } from "@headlessui/react";
 import { Header } from "../header";
 import { TaskCalenderTab } from "../task-calender-tab";
 import { TaskListTab } from "../task-list-tab";
+import { Typography } from "../parts";
 import { useAuth } from "@/lib";
 
 export function DashboardPage() {
@@ -39,7 +40,7 @@ export function DashboardPage() {
                 )
               }
             >
-              タスク一覧
+              <Typography>タスク一覧</Typography>
             </Tab>
             <Tab
               className={({ selected }) =>
@@ -51,7 +52,7 @@ export function DashboardPage() {
                 )
               }
             >
-              カレンダー
+              <Typography>カレンダー</Typography>
             </Tab>
           </Tab.List>
           <Tab.Panels className="mt-2">

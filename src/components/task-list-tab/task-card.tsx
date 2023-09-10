@@ -1,5 +1,5 @@
-import { Text } from "@tremor/react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { Typography } from "../parts";
 import { Task } from "@/model";
 
 type Props = { task: Task; completeTask: ({ id }: { id: string }) => unknown };
@@ -13,7 +13,9 @@ export function TaskCard(props: Props) {
       className="flex items-center rounded border border-slate-300"
     >
       <div className="w-full">
-        <Text className="px-1">{task.title}</Text>
+        <div className="px-1">
+          <Typography>{task.title}</Typography>
+        </div>
       </div>
       <div className="ml-3 w-fit p-1">
         <div className="flex items-center">

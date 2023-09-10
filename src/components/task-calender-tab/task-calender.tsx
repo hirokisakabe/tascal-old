@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { format } from "date-fns";
-import { Grid, Text, Title, Flex } from "@tremor/react";
+import { Grid, Flex } from "@tremor/react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
+import { Typography } from "../parts";
 import { CreateTaskButton } from "./create-task-button";
 import { TaskBoxContainer } from "./task-box-container";
 import { Task, YearMonthDay, convertYearMonthDayToStr } from "@/model";
@@ -41,7 +42,7 @@ export function TaskCalender(props: Props) {
           </button>
         </div>
         <div>
-          <Title>{title}</Title>
+          <Typography size="text-xl">{title}</Typography>
         </div>
         <div>
           <button onClick={moveToAfter}>
@@ -148,13 +149,17 @@ function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
         {[...Array(numberOfDummyTasks)]
           .map((_, i) => i)
           .map((i) => (
-            <Text key={i} className="invisible">
-              ____
-            </Text>
+            <div key={i} className="invisible">
+              <Typography>____</Typography>
+            </div>
           ))}
         {(() => {
           if (!needShowMore) {
-            return <Text className="invisible">____</Text>;
+            return (
+              <div className="invisible">
+                <Typography>____</Typography>
+              </div>
+            );
           }
 
           return showAll ? (

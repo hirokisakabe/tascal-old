@@ -1,6 +1,6 @@
-import { Text } from "@tremor/react";
 import { useCallback, useState } from "react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { Typography } from "../parts";
 import { EditTaskDialog } from "@/components/dialog";
 import { Task } from "@/model";
 
@@ -23,7 +23,9 @@ export function TaskBox({ task, completeTask }: Props) {
             type="button"
             onClick={openDialog}
           >
-            <Text className="px-1">{task.title}</Text>
+            <div className="px-1">
+              <Typography>{task.title}</Typography>
+            </div>
           </button>
         </div>
         <div className="ml-3 w-fit p-1">

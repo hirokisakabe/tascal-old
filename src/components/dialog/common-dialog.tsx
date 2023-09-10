@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, ReactNode } from "react";
-import { Title } from "@tremor/react";
+import { Typography } from "../parts";
 
 export function CommonDialog({
   isOpen,
@@ -44,7 +44,7 @@ export function CommonDialog({
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
                 >
-                  <Title>{title}</Title>
+                  <Typography size="text-xl">{title}</Typography>
                 </Dialog.Title>
                 {children}
               </Dialog.Panel>

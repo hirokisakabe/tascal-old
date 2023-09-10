@@ -1,5 +1,6 @@
-import { Button, Flex, Text } from "@tremor/react";
+import { Button, Flex } from "@tremor/react";
 import { useCallback } from "react";
+import { Typography } from "../parts";
 import { CommonDialog } from "./common-dialog";
 
 export function CommonConfirmDialog({
@@ -24,7 +25,7 @@ export function CommonConfirmDialog({
     <CommonDialog isOpen={isOpen} handleClose={handleClose} title={title}>
       <div className="mt-2">
         <div className="py-2">
-          <Text>{message}</Text>
+          <Typography>{message}</Typography>
         </div>
       </div>
       <Flex className="pt-3">

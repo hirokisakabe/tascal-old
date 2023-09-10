@@ -1,11 +1,11 @@
-import { Title } from "@tremor/react";
+import { Typography } from "../parts";
 import { HeaderMenu } from "./header-menu";
 
 export function Header() {
   return (
     <div className="flex pt-2">
       <div className="w-full">
-        <Title>Tascal</Title>
+        <Typography size="text-xl">Tascal</Typography>
       </div>
       <div className="flex justify-end">
         <HeaderMenu />
