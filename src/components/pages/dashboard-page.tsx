@@ -1,7 +1,7 @@
 "use client";
 
 import { redirect } from "next/navigation";
-import { TabList, Tab, TabGroup, TabPanels, TabPanel } from "@tremor/react";
+import { Tab } from "@headlessui/react";
 import { Header } from "../header";
 import { TaskCalenderTab } from "../task-calender-tab";
 import { TaskListTab } from "../task-list-tab";
@@ -27,21 +27,57 @@ export function DashboardPage() {
         <Header />
       </div>
       <main className="px-3 py-1">
-        <TabGroup>
-          <TabList>
-            <Tab>タスク一覧</Tab>
-            <Tab>カレンダー</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
+        <Tab.Group>
+          <Tab.List className="flex w-max space-x-3 px-3">
+            <Tab
+              className={({ selected }) =>
+                classNames(
+                  "px-2 py-2.5 text-sm font-medium leading-5",
+                  selected
+                    ? "text-blue-700 underline decoration-sky-500 underline-offset-8"
+                    : "text-black",
+                )
+              }
+            >
+              タスク一覧
+            </Tab>
+            <Tab
+              className={({ selected }) =>
+                classNames(
+                  "px-2 py-2.5 text-sm font-medium leading-5",
+                  selected
+                    ? "text-blue-700 underline decoration-sky-500 underline-offset-8"
+                    : "text-black",
+                )
+              }
+            >
+              カレンダー
+            </Tab>
+          </Tab.List>
+          <Tab.Panels className="mt-2">
+            <Tab.Panel
+              className={classNames(
+                "rounded-xl bg-white p-3",
+                "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+              )}
+            >
               <TaskListTab />
-            </TabPanel>
-            <TabPanel>
+            </Tab.Panel>
+            <Tab.Panel
+              className={classNames(
+                "rounded-xl bg-white p-3",
+                "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+              )}
+            >
               <TaskCalenderTab />
-            </TabPanel>
-          </TabPanels>
-        </TabGroup>
+            </Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
       </main>
     </div>
   );
+}
+
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
 }
