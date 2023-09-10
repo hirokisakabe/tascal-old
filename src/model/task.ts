@@ -5,6 +5,13 @@ const Task = z.object({
   title: z.string(),
   isCompleted: z.boolean(),
   targetDate: z.nullable(z.string()),
+  category: z.nullable(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      color: z.string(),
+    }),
+  ),
 });
 
 export type Task = z.infer<typeof Task>;

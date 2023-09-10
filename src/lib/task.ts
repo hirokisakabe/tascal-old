@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { getUserId, useAuth } from "./auth";
+import { useCategories } from "./category";
 import { firestore } from "@/config";
 import { Task, isTask } from "@/model";
 
@@ -45,10 +46,12 @@ export async function updateTask({
   id,
   title,
   targetDate,
+  categoryId,
 }: {
   id: string;
   title?: string;
   targetDate: string | undefined | null;
+  categoryId: string | undefined | null;
 }) {
   const userId = getUserId();
 
@@ -69,6 +72,7 @@ export async function updateTask({
       title,
       targetDate: targetDate || null, // 空文字はnullに変換する
       targetMonth: targetMonth || null,
+      categoryId,
     };
   })();
 
@@ -133,6 +137,8 @@ export function useTaskList(options?: {
 
   const [value, loading, error] = useCollection(q);
 
+  const categories = useCategories();
+
   if (loading) {
     return null;
   }
@@ -147,7 +153,13 @@ export function useTaskList(options?: {
   value?.docs.forEach((doc) => {
     const maybeTask = { id: doc.id, ...doc.data() };
 
-    const parsedTask = isTask(maybeTask);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const category = categories?.find((v) => v.id === maybeTask.categoryId);
+
+    const parsedTask = isTask(
+      category ? { ...maybeTask, category } : maybeTask,
+    );
     if (parsedTask.success) {
       result.push(parsedTask.data);
 

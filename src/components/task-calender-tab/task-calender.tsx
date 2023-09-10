@@ -14,12 +14,7 @@ type Props = {
       month: number;
       day: number;
     };
-    tasks: {
-      id: string;
-      title: string;
-      isCompleted: boolean;
-      targetDate: string | null;
-    }[];
+    tasks: Task[];
   }[];
   moveToBefore: () => unknown;
   moveToAfter: () => unknown;

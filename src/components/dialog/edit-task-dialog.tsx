@@ -3,7 +3,8 @@ import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CommonDialog } from "./common-dialog";
 import { CommonConfirmDialog } from "./common-confirm-dialog";
-import { deleteTask, updateTask } from "@/lib";
+import { CommonSelect } from "./common-select";
+import { deleteTask, updateTask, useCategories } from "@/lib";
 import { Task } from "@/model";
 
 export function EditTaskDialog({
@@ -21,6 +22,19 @@ export function EditTaskDialog({
       "input-task-target-date": task.targetDate,
     },
   });
+
+  const categories = useCategories();
+  const [selectedCategory, setSelectedCategory] = useState<
+    | {
+        id: string;
+        name: string;
+      }
+    | undefined
+  >(
+    task.category
+      ? { id: task.category.id, name: task.category.name }
+      : undefined,
+  );
 
   const onSubmit = useCallback(
     async (data: { [x: string]: unknown }) => {
@@ -43,11 +57,12 @@ export function EditTaskDialog({
         id: task.id,
         title,
         targetDate,
+        categoryId: selectedCategory ? selectedCategory.id : null,
       });
       reset();
       handleClose();
     },
-    [task.id, reset, handleClose],
+    [task.id, selectedCategory, reset, handleClose],
   );
 
   const [isOpenDialog, setIsOpenDialog] = useState(false);
@@ -82,6 +97,18 @@ export function EditTaskDialog({
               <Text>実施日</Text>
             </div>
             <input type="date" {...register("input-task-target-date")} />
+          </div>
+          <div className="mt-2">
+            <div className="py-2">
+              <Text>カテゴリ</Text>
+            </div>
+            {categories && (
+              <CommonSelect
+                options={categories}
+                value={selectedCategory}
+                onChange={setSelectedCategory}
+              />
+            )}
           </div>
           <Flex className="pt-3">
             <Flex justifyContent="end" className="-mr-2 space-x-2">

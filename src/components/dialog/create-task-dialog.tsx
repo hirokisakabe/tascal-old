@@ -1,8 +1,9 @@
 import { Button, Flex, Text, TextInput } from "@tremor/react";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CommonDialog } from "./common-dialog";
-import { createTask } from "@/lib";
+import { CommonSelect } from "./common-select";
+import { createTask, useCategories } from "@/lib";
 import { YearMonthDay, convertYearMonthDayToStr } from "@/model";
 
 export function CreateTaskDialog({
@@ -21,6 +22,15 @@ export function CreateTaskDialog({
         initialYmd && convertYearMonthDayToStr(initialYmd),
     },
   });
+
+  const categories = useCategories();
+  const [selectedCategory, setSelectedCategory] = useState<
+    | {
+        id: string;
+        name: string;
+      }
+    | undefined
+  >(undefined);
 
   const onSubmit = useCallback(
     async (data: { [x: string]: unknown }) => {
@@ -71,6 +81,18 @@ export function CreateTaskDialog({
             <Text>実施日</Text>
           </div>
           <input type="date" {...register("input-task-target-date")} />
+        </div>
+        <div className="mt-2">
+          <div className="py-2">
+            <Text>カテゴリ</Text>
+          </div>
+          {categories && (
+            <CommonSelect
+              options={categories}
+              value={selectedCategory}
+              onChange={setSelectedCategory}
+            />
+          )}
         </div>
         <Flex className="pt-3">
           <Flex justifyContent="end" className="-mr-2 space-x-2">
