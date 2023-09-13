@@ -1,6 +1,7 @@
-import { Button, Flex, Text, TextInput } from "@tremor/react";
+import { Button, Flex, TextInput } from "@tremor/react";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
+import { Typography } from "../parts";
 import { CommonDialog } from "./common-dialog";
 import { CommonConfirmDialog } from "./common-confirm-dialog";
 import { CommonSelect } from "./common-select";
@@ -84,7 +85,7 @@ export function EditTaskDialog({
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-2">
             <div className="py-2">
-              <Text>タイトル</Text>
+              <Typography>タイトル</Typography>
             </div>
             <TextInput
               placeholder="タスクを入力"
@@ -94,13 +95,13 @@ export function EditTaskDialog({
           </div>
           <div className="mt-2">
             <div className="py-2">
-              <Text>実施日</Text>
+              <Typography>実施日</Typography>
             </div>
             <input type="date" {...register("input-task-target-date")} />
           </div>
           <div className="mt-2">
             <div className="py-2">
-              <Text>カテゴリ</Text>
+              <Typography>カテゴリ</Typography>
             </div>
             {categories && (
               <CommonSelect

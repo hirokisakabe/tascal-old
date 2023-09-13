@@ -1,6 +1,7 @@
-import { Button, Flex, Text, TextInput } from "@tremor/react";
+import { Button, Flex, TextInput } from "@tremor/react";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
+import { Typography } from "../parts";
 import { CommonDialog } from "./common-dialog";
 import { createCategory } from "@/lib";
 
@@ -47,7 +48,7 @@ export function CreateCategoryDialog({
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mt-2">
           <div className="py-2">
-            <Text>カテゴリ名</Text>
+            <Typography>カテゴリ名</Typography>
           </div>
           <TextInput
             placeholder="カテゴリ名を入力"
@@ -57,7 +58,7 @@ export function CreateCategoryDialog({
         </div>
         <div className="mt-2">
           <div className="py-2">
-            <Text>色</Text>
+            <Typography>色</Typography>
           </div>
           <input type="color" {...register("input-category-color")} />
         </div>
