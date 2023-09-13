@@ -1,4 +1,4 @@
-import { Button, Flex } from "@tremor/react";
+import { Button } from "@tremor/react";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TextInput, Typography } from "../parts";
@@ -110,8 +110,8 @@ export function EditTaskDialog({
               />
             )}
           </div>
-          <Flex className="pt-3">
-            <Flex justifyContent="end" className="-mr-2 space-x-2">
+          <div className="pt-3">
+            <div className="-mr-2 flex justify-end space-x-2">
               <Button type="button" onClick={handleClose}>
                 キャンセル
               </Button>
@@ -119,8 +119,8 @@ export function EditTaskDialog({
                 削除
               </Button>
               <Button type="submit">更新</Button>
-            </Flex>
-          </Flex>
+            </div>
+          </div>
         </form>
       </CommonDialog>
       <CommonConfirmDialog

@@ -1,4 +1,4 @@
-import { Button, Flex } from "@tremor/react";
+import { Button } from "@tremor/react";
 import { useCallback } from "react";
 import { Typography } from "../parts";
 import { CommonDialog } from "./common-dialog";
@@ -28,16 +28,16 @@ export function CommonConfirmDialog({
           <Typography>{message}</Typography>
         </div>
       </div>
-      <Flex className="pt-3">
-        <Flex justifyContent="end" className="-mr-2 space-x-2">
+      <div className="pt-3">
+        <div className="-mr-2 flex justify-end space-x-2">
           <Button type="button" onClick={handleClose}>
             キャンセル
           </Button>
           <Button type="button" onClick={onClickOK}>
             OK
           </Button>
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     </CommonDialog>
   );
 }

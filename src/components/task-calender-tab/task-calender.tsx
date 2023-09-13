@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { format } from "date-fns";
-import { Grid, Flex } from "@tremor/react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { Typography } from "../parts";
 import { CreateTaskButton } from "./create-task-button";
@@ -35,7 +34,7 @@ export function TaskCalender(props: Props) {
 
   return (
     <div className="w-full py-3">
-      <Flex className="py-1">
+      <div className="flex justify-between py-1">
         <div>
           <button onClick={moveToBefore}>
             <ChevronLeftIcon className="w-5" />
@@ -49,7 +48,7 @@ export function TaskCalender(props: Props) {
             <ChevronRightIcon className="w-5" />
           </button>
         </div>
-      </Flex>
+      </div>
       <div className="py-1">
         <Calender
           data={calenderData}
@@ -71,7 +70,7 @@ function Calender({
   lastDayOfNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6;
 }) {
   return (
-    <Grid numItems={7} className="border-b border-r">
+    <div className="grid grid-cols-7 border-b border-r">
       {[...Array(7)]
         .map((_, i) => i)
         .map((i) => (
@@ -91,7 +90,7 @@ function Calender({
         .map((i) => (
           <CalenderBeforeMonthDayCell key={i} />
         ))}
-    </Grid>
+    </div>
   );
 }
 
