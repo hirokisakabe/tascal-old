@@ -1,6 +1,5 @@
-import { Button } from "@tremor/react";
 import { useCallback } from "react";
-import { Typography } from "../parts";
+import { Typography, Button } from "../parts";
 import { CommonDialog } from "./common-dialog";
 
 export function CommonConfirmDialog({

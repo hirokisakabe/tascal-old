@@ -1,7 +1,7 @@
 "use client";
 
 import { redirect } from "next/navigation";
-import { Button } from "@tremor/react";
+import { Button } from "../parts";
 import { useAuth, useSignIn } from "@/lib";
 
 export function IndexPage() {
@@ -21,9 +21,7 @@ export function IndexPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Button size="xs" variant="secondary" onClick={() => signIn()}>
-        Sign In
-      </Button>
+      <Button onClick={() => signIn()}>Sign In</Button>
     </main>
   );
 }
