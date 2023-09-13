@@ -1,7 +1,7 @@
-import { Button, Flex, TextInput } from "@tremor/react";
+import { Button, Flex } from "@tremor/react";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { Typography } from "../parts";
+import { TextInput, Typography } from "../parts";
 import { CommonDialog } from "./common-dialog";
 import { createCategory } from "@/lib";
 
@@ -52,7 +52,6 @@ export function CreateCategoryDialog({
           </div>
           <TextInput
             placeholder="カテゴリ名を入力"
-            type="text"
             {...register("input-category-name")}
           />
         </div>
