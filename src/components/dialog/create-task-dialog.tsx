@@ -1,7 +1,7 @@
-import { Button, Flex, TextInput } from "@tremor/react";
+import { Button, Flex } from "@tremor/react";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Typography } from "../parts";
+import { TextInput, Typography } from "../parts";
 import { CommonDialog } from "./common-dialog";
 import { CommonSelect } from "./common-select";
 import { createTask, useCategories } from "@/lib";
@@ -73,7 +73,6 @@ export function CreateTaskDialog({
           </div>
           <TextInput
             placeholder="タスクを入力"
-            type="text"
             {...register("input-task-title")}
           />
         </div>
