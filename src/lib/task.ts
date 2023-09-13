@@ -158,7 +158,7 @@ export function useTaskList(options?: {
     const category = categories?.find((v) => v.id === maybeTask.categoryId);
 
     const parsedTask = isTask(
-      category ? { ...maybeTask, category } : maybeTask,
+      category ? { ...maybeTask, category } : { ...maybeTask, category: null },
     );
     if (parsedTask.success) {
       result.push(parsedTask.data);
