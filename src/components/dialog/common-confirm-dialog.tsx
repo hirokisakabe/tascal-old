@@ -29,7 +29,7 @@ export function CommonConfirmDialog({
       </div>
       <div className="pt-3">
         <div className="-mr-2 flex justify-end space-x-2">
-          <Button type="button" onClick={handleClose}>
+          <Button type="button" onClick={handleClose} color="secondary">
             キャンセル
           </Button>
           <Button type="button" onClick={onClickOK}>
