@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useTaskList } from "@/lib";
 
 export function useTaskCalender() {
-  const [excludeIsCompleted, setExcludeIsCompleted] = useState(false);
+  const [excludeIsCompleted, setExcludeIsCompleted] = useState(true);
 
   const toggleExcludeIsCompleted = useCallback(
     () => setExcludeIsCompleted((prev) => !prev),

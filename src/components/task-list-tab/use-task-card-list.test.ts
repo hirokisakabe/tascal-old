@@ -52,8 +52,8 @@ test("タスクがある場合、データを取得できること", () => {
       targetDate: "2023-01-02",
     },
   ]);
-  expect(result.current.excludeIsCompleted).toEqual(false);
-  expect(useTaskList).toHaveBeenNthCalledWith(1, { isCompleted: undefined });
+  expect(result.current.excludeIsCompleted).toEqual(true);
+  expect(useTaskList).toHaveBeenNthCalledWith(1, { isCompleted: false });
 });
 
 test("タスクがない場合、データを取得できること", () => {
@@ -62,8 +62,8 @@ test("タスクがない場合、データを取得できること", () => {
   const { result } = renderHook(() => useTaskCalender());
 
   expect(result.current.taskList).toBeNull();
-  expect(result.current.excludeIsCompleted).toEqual(false);
-  expect(useTaskList).toHaveBeenNthCalledWith(1, { isCompleted: undefined });
+  expect(result.current.excludeIsCompleted).toEqual(true);
+  expect(useTaskList).toHaveBeenNthCalledWith(1, { isCompleted: false });
 });
 
 test("toggleExcludeIsCompletedの操作がexcludeIsCompletedに反映されること", () => {
@@ -71,13 +71,13 @@ test("toggleExcludeIsCompletedの操作がexcludeIsCompletedに反映される�
 
   const { result } = renderHook(() => useTaskCalender());
 
-  expect(result.current.excludeIsCompleted).toEqual(false);
-  expect(useTaskList).toHaveBeenNthCalledWith(1, { isCompleted: undefined });
+  expect(result.current.excludeIsCompleted).toEqual(true);
+  expect(useTaskList).toHaveBeenNthCalledWith(1, { isCompleted: false });
 
   act(() => {
     result.current.toggleExcludeIsCompleted();
   });
 
-  expect(result.current.excludeIsCompleted).toEqual(true);
-  expect(useTaskList).toHaveBeenNthCalledWith(2, { isCompleted: false });
+  expect(result.current.excludeIsCompleted).toEqual(false);
+  expect(useTaskList).toHaveBeenNthCalledWith(2, { isCompleted: undefined });
 });
