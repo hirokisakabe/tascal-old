@@ -10,11 +10,14 @@ export function IsCompletedFilterButton({
   return (
     <>
       <button onClick={onClick}>
-        {excludeIsCompleted ? (
-          <FunnelIcon className="w-8 fill-transparent stroke-black" />
-        ) : (
-          <FunnelIcon className="w-8 stroke-black" />
-        )}
+        <div className="flex items-center rounded-md px-2 text-sm outline outline-1">
+          {excludeIsCompleted ? (
+            <FunnelIcon className="w-6 fill-transparent stroke-black" />
+          ) : (
+            <FunnelIcon className="w-6 stroke-black" />
+          )}
+          完了済みのタスクを{excludeIsCompleted ? "非表示" : "表示"}
+        </div>
       </button>
     </>
   );
