@@ -25,7 +25,14 @@ export function TaskCard(props: Props) {
             type="button"
             onClick={openDialog}
           >
-            <Typography>{task.title}</Typography>
+            <div className="flex">
+              <div className="basis-4/5">
+                <Typography>{task.title}</Typography>
+              </div>
+              <div className="basis-1/5">
+                <Typography>{task.targetDate || ""}</Typography>
+              </div>
+            </div>
           </button>
         </div>
         <div className="ml-3 w-fit p-1">
