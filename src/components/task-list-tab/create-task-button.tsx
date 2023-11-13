@@ -10,7 +10,10 @@ export function CreateTaskButton() {
   return (
     <>
       <button onClick={openDialog}>
-        <PlusIcon className="w-8" />
+        <div className="flex items-center rounded-md px-2 text-sm outline outline-1">
+          <PlusIcon className="w-6" />
+          タスクを追加
+        </div>
       </button>
       <CreateTaskDialog isOpen={isOpenDialog} handleClose={closeDialog} />
     </>
