@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { format } from "date-fns";
+import { format, isWeekend } from "date-fns";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { Typography } from "../parts";
 import { CreateTaskButton } from "./create-task-button";
@@ -77,7 +77,7 @@ function Calender({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           <CalenderDayNameCell key={i} dayNumber={i as any} />
         ))}
-      {[...Array(firstDayOfNumber)]
+      {[...Array(firstDayOfNumber - 1)]
         .map((_, i) => i)
         .map((i) => (
           <CalenderBeforeMonthDayCell key={i} />
@@ -85,7 +85,7 @@ function Calender({
       {data.map(({ ymd, tasks }) => (
         <CalenderDayCell key={ymd.day} ymd={ymd} tasks={tasks} />
       ))}
-      {[...Array(6 - lastDayOfNumber)]
+      {[...Array(7 - lastDayOfNumber)]
         .map((_, i) => i)
         .map((i) => (
           <CalenderBeforeMonthDayCell key={i} />
@@ -120,63 +120,81 @@ function CalenderDayCell({ ymd, tasks }: { ymd: YearMonthDay; tasks: Task[] }) {
     convertYearMonthDayToStr(ymd) === format(new Date(), "yyyy-MM-dd");
 
   return (
-    <div className="border-l border-t">
-      <div className="p-1">
-        <div className="flex items-center">
-          <div className="w-full">
-            {isToday ? (
-              <div className="text-sm font-semibold text-blue-500">
-                {ymd.day} 日
+    <WeekendColor ymd={ymd}>
+      <div className="border-l border-t">
+        <div className="p-1">
+          <div className="flex items-center">
+            <div className="w-full">
+              {isToday ? (
+                <div className="text-sm font-semibold text-blue-500">
+                  {ymd.day} 日
+                </div>
+              ) : (
+                <div className="text-sm text-slate-500">{ymd.day} 日</div>
+              )}
+            </div>
+            <div className="flex justify-end">
+              <div className="flex items-center py-1">
+                <CreateTaskButton ymd={ymd} />
               </div>
-            ) : (
-              <div className="text-sm text-slate-500">{ymd.day} 日</div>
-            )}
-          </div>
-          <div className="flex justify-end">
-            <div className="flex items-center py-1">
-              <CreateTaskButton ymd={ymd} />
             </div>
           </div>
-        </div>
-        <div className="space-y-0.5">
-          {tasksToShow.map((task) => (
-            <div className="px-1" key={task.id}>
-              <TaskBoxContainer task={task} />
-            </div>
-          ))}
-        </div>
-        {[...Array(numberOfDummyTasks)]
-          .map((_, i) => i)
-          .map((i) => (
-            <div key={i} className="invisible">
-              <Typography>____</Typography>
-            </div>
-          ))}
-        {(() => {
-          if (!needShowMore) {
-            return (
-              <div className="invisible">
+          <div className="space-y-0.5">
+            {tasksToShow.map((task) => (
+              <div className="px-1" key={task.id}>
+                <TaskBoxContainer task={task} />
+              </div>
+            ))}
+          </div>
+          {[...Array(numberOfDummyTasks)]
+            .map((_, i) => i)
+            .map((i) => (
+              <div key={i} className="invisible">
                 <Typography>____</Typography>
               </div>
-            );
-          }
+            ))}
+          {(() => {
+            if (!needShowMore) {
+              return (
+                <div className="invisible">
+                  <Typography>____</Typography>
+                </div>
+              );
+            }
 
-          return showAll ? (
-            <div className="w-full py-1 text-end text-slate-500">
-              <button type="button" onClick={() => setShowAll(false)}>
-                show less
-              </button>
-            </div>
-          ) : (
-            <div className="w-full py-1 text-end text-slate-500">
-              <button type="button" onClick={() => setShowAll(true)}>
-                show more
-              </button>
-            </div>
-          );
-        })()}
+            return showAll ? (
+              <div className="w-full py-1 text-end text-slate-500">
+                <button type="button" onClick={() => setShowAll(false)}>
+                  show less
+                </button>
+              </div>
+            ) : (
+              <div className="w-full py-1 text-end text-slate-500">
+                <button type="button" onClick={() => setShowAll(true)}>
+                  show more
+                </button>
+              </div>
+            );
+          })()}
+        </div>
       </div>
-    </div>
+    </WeekendColor>
+  );
+}
+
+function WeekendColor({
+  children,
+  ymd,
+}: {
+  children: React.ReactNode;
+  ymd: YearMonthDay;
+}) {
+  const weekend = isWeekend(new Date(convertYearMonthDayToStr(ymd)));
+
+  return weekend ? (
+    <div className="bg-red-50"> {children}</div>
+  ) : (
+    <div>{children}</div>
   );
 }
 
@@ -198,19 +216,19 @@ function convertDateToDayName(dayNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6) {
   const dayName = (() => {
     switch (dayNumber) {
       case 0:
-        return "日";
-      case 1:
         return "月";
-      case 2:
+      case 1:
         return "火";
-      case 3:
+      case 2:
         return "水";
-      case 4:
+      case 3:
         return "木";
-      case 5:
+      case 4:
         return "金";
-      case 6:
+      case 5:
         return "土";
+      case 6:
+        return "日";
     }
   })();
 
