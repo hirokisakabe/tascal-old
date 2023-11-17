@@ -1,9 +1,7 @@
 import { z } from "zod";
 
 const Category = z.object({
-  id: z.string(),
-  name: z.string(),
-  color: z.string(),
+  firstDayOfWeek: z.enum(["monday", "sunday"]),
 });
 
 export type Category = z.infer<typeof Category>;
