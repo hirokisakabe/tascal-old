@@ -19,6 +19,7 @@ export function TaskCalenderContainer() {
       moveToAfter={moveToAfter}
       firstDayOfNumber={firstDayOfNumber}
       lastDayOfNumber={lastDayOfNumber}
+      firstDay="monday"
     />
   );
 }

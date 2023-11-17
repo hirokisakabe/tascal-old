@@ -20,6 +20,7 @@ type Props = {
   moveToAfter: () => unknown;
   firstDayOfNumber: 0 | 2 | 1 | 3 | 4 | 5 | 6;
   lastDayOfNumber: 0 | 2 | 1 | 3 | 4 | 5 | 6;
+  firstDay: "monday" | "sunday";
 };
 
 export function TaskCalender(props: Props) {
@@ -30,6 +31,7 @@ export function TaskCalender(props: Props) {
     moveToAfter,
     firstDayOfNumber,
     lastDayOfNumber,
+    firstDay,
   } = props;
 
   return (
@@ -54,6 +56,7 @@ export function TaskCalender(props: Props) {
           data={calenderData}
           firstDayOfNumber={firstDayOfNumber}
           lastDayOfNumber={lastDayOfNumber}
+          firstDay={firstDay}
         />
       </div>
     </div>
@@ -64,20 +67,40 @@ function Calender({
   data,
   firstDayOfNumber,
   lastDayOfNumber,
+  firstDay,
 }: {
   data: { ymd: YearMonthDay; tasks: Task[] }[];
   firstDayOfNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   lastDayOfNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  firstDay: "monday" | "sunday";
 }) {
+  const numOfBeforeMonthCells = (() => {
+    if (firstDay === "monday") {
+      return firstDayOfNumber === 0 ? 6 : firstDayOfNumber - 1;
+    }
+    return firstDayOfNumber;
+  })();
+
+  const numOfAfterMonthCells = (() => {
+    if (firstDay === "monday") {
+      return lastDayOfNumber === 0 ? 0 : 7 - lastDayOfNumber;
+    }
+    return lastDayOfNumber;
+  })();
+
   return (
     <div className="grid grid-cols-7 border-b border-r">
       {[...Array(7)]
         .map((_, i) => i)
         .map((i) => (
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          <CalenderDayNameCell key={i} dayNumber={i as any} />
+          <CalenderDayNameCell
+            key={i}
+            dayNumber={i as any}
+            firstDay={firstDay}
+          />
         ))}
-      {[...Array(firstDayOfNumber - 1)]
+      {[...Array(numOfBeforeMonthCells)]
         .map((_, i) => i)
         .map((i) => (
           <CalenderBeforeMonthDayCell key={i} />
@@ -85,7 +108,7 @@ function Calender({
       {data.map(({ ymd, tasks }) => (
         <CalenderDayCell key={ymd.day} ymd={ymd} tasks={tasks} />
       ))}
-      {[...Array(7 - lastDayOfNumber)]
+      {[...Array(numOfAfterMonthCells)]
         .map((_, i) => i)
         .map((i) => (
           <CalenderBeforeMonthDayCell key={i} />
@@ -200,35 +223,47 @@ function WeekendColor({
 
 function CalenderDayNameCell({
   dayNumber,
+  firstDay,
 }: {
   dayNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  firstDay: "monday" | "sunday";
 }) {
   return (
     <div className="border-l border-t pl-2">
       <div className="text-sm text-slate-500">
-        {convertDateToDayName(dayNumber)}
+        {convertDateToDayName(dayNumber, firstDay)}
       </div>
     </div>
   );
 }
 
-function convertDateToDayName(dayNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6) {
+function convertDateToDayName(
+  dayNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6,
+  firstDay: "monday" | "sunday",
+) {
+  const n = (() => {
+    if (firstDay === "monday") {
+      return dayNumber === 6 ? 0 : dayNumber + 1;
+    }
+    return dayNumber;
+  })();
+
   const dayName = (() => {
-    switch (dayNumber) {
+    switch (n) {
       case 0:
-        return "月";
-      case 1:
-        return "火";
-      case 2:
-        return "水";
-      case 3:
-        return "木";
-      case 4:
-        return "金";
-      case 5:
-        return "土";
-      case 6:
         return "日";
+      case 1:
+        return "月";
+      case 2:
+        return "火";
+      case 3:
+        return "水";
+      case 4:
+        return "木";
+      case 5:
+        return "金";
+      case 6:
+        return "土";
     }
   })();
 
