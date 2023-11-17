@@ -1,5 +1,6 @@
 import { useTaskCalender } from "./use-task-calender";
 import { TaskCalender } from "./task-calender";
+import { useUserConfig } from "@/lib/user-config";
 
 export function TaskCalenderContainer() {
   const {
@@ -10,6 +11,7 @@ export function TaskCalenderContainer() {
     firstDayOfNumber,
     lastDayOfNumber,
   } = useTaskCalender();
+  const {f} = useUserConfig()
 
   return (
     <TaskCalender
@@ -19,6 +21,7 @@ export function TaskCalenderContainer() {
       moveToAfter={moveToAfter}
       firstDayOfNumber={firstDayOfNumber}
       lastDayOfNumber={lastDayOfNumber}
+      firstDay="monday"
     />
   );
 }
